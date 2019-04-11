@@ -1,8 +1,7 @@
 const PubSub = require('../helpers/pub_sub.js');
 
-const MountainView = function (container, mountain) {
+const MountainView = function (container) {
   this.container = container;
-  this.mountain = mountain
 }
 
 
@@ -19,36 +18,36 @@ MountainView.prototype.render = function(data) {
 
   const mountainName = document.createElement("div")
   mountainName.classList.add("mountains")
-  mountainName.textContent = data.name
+  // mountainName.textContent = data.name
   this.container.appendChild(mountainName)
 
-  const mountainHeader = this.createMountainHeading()
+  const mountainHeader = this.createMountainHeading(data)
   this.container.appendChild(mountainHeader)
 
-  const mountainList = document.createMountainLi()
+  const mountainList = this.populateList(data)
   this.container.appendChild(mountainList)
 }
 
 
 
-MountainView.prototype.createMountainHeading = function () {
-  const name = document.createElement('h3');
+MountainView.prototype.createMountainHeading = function (mountain) {
+  const name = document.createElement('h1');
   name.classList.add('mountain-name');
-  name.textContent = mountains.name;
+  name.textContent = mountain.name;
   return name;
   }
 
-MountainView.prototype.createMountainLi = function () {
+MountainView.prototype.populateList = function (mountain) {
   const mountainsList = document.createElement('ul');
   mountainsList.classList.add('mountains');
-  this.populateList(mountainsList);
+  this.createMountainLi(mountainsList, mountain);
   return mountainsList;
 };
 
-MountainView.prototype.populateList = function (list) {
-  this.mountain.forEach((mountain) => {
+MountainView.prototype.createMountainLi = function (list, mountain) {
+  Object.keys(mountain).forEach((property) => {
     const mountainListItem = document.createElement('li');
-    mountainListItem.textContent = mountain.region;
+    mountainListItem.textContent = mountain[property];
     list.appendChild(mountainListItem);
   });
 };

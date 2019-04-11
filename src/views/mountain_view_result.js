@@ -14,7 +14,6 @@ MountainViewResult.prototype.bindEvents = function () {
 
 MountainViewResult.prototype.render = function (mountains) {
   mountains.forEach(mountain => {
-    // console.log(mountain);
     const mountainView = new MountainView(this.container);
     mountainView.render(mountain);
   });
